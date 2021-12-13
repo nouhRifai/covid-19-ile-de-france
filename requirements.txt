@@ -1,0 +1,9 @@
+streamlit
+pandas
+numpy 
+urllib.request
+datetime
+pydeck 
+matplotlib.dates
+matplotlib.pyplot
+altair
