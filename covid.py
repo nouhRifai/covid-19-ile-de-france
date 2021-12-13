@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import urllib.request, json 
+import urllib.request, json
+import requests
 from datetime import date, timedelta
 import pydeck as pdk
 import matplotlib.dates as mdates
@@ -52,8 +53,8 @@ def _get_lon(row):
 @st.cache(ttl=60*60)
 def load_data_covid_ile_de_france():
     data = ''
-    with urllib.request.urlopen(COVID_ILE_DE_FRANCE_DATASET_API) as url:
-        data = json.loads(url.read().decode())
+    with requests.get(COVID_ILE_DE_FRANCE_DATASET_API) as r:
+        data = r.json()
     data = pd.DataFrame(data['records'][i]['fields'] for i in range(len(data['records'])))        
     data['date'] = pd.to_datetime(data['date'])
     data = data.rename(columns={'reg_code':'Region_Code',
